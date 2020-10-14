@@ -69,6 +69,7 @@ async def run_duel(ctx, action, user = None):
         current_round_phase = RoundPhase.PRE_ROUND
         actionsMade = 0
         round_messgaes_sent = [False, False, False]
+        await ctx.sned("```Resetting game```")
         return 
     if action.lower() == "help":
         await ctx.send("```Welcome to the Mob ladies and gents. The game is simple: ya gotta rise to the top ranks of the mob, but to do so, ya gotta choose who to help out and choose who to rat out. There's only room for one wiseguy at the top of this mob!\n\nCommands:\n!Mob Start: Starts the joining phase of the game.\n!Mob JoinGame: The sender joins the game.\n!Mob LockJoin: ends the joining phase and the game begins.\n!Mob Snitch [player]: Command to be used during daily activities round. Snitches on someone, increasing notoriety level by 1.\n!Mob Support [player]: Command to be used in activities round. Support another player in the mob, increasing your and the person you support supportLevel by 1.```")
