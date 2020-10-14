@@ -142,7 +142,7 @@ async def run_duel(ctx, action, user = None):
             return
         elif game_started and action.lower() == "joingame":
             Add_Player(ctx.author.name.replace(" ",""))
-            await ctx.send(ctx.author.name + " has joined the mob. Current players = " + str(len(current_players)) )
+            await ctx.send(ctx.author.name.replace(" ", "") + " has joined the mob. Current players = " + str(len(current_players)) )
             await ctx.send(Get_Players_String())
             return
         elif game_started and len(current_players) >= 4 and action.lower() == "lockjoin":
@@ -175,12 +175,12 @@ async def run_duel(ctx, action, user = None):
                 if isinstance(ctx.channel, discord.channel.DMChannel):
                     print("dm bot")
                     if action.lower() == "snitch" and not Get_Player_By_Name(ctx.author.name).made_action_this_turn:
-                        playerHit = Get_Player_By_Name()
+                        playerHit = Get_Player_By_Name(user)
                         playerHit.notoriety += 1
                         actionsMade += 1
                         #await ctx.message.delete()
                     elif action.lower() == "support" and not Get_Player_By_Name(ctx.author.name).made_action_this_turn:
-                        playerHit = Get_Player_By_Name()
+                        playerHit = Get_Player_By_Name(user)
                         user_player = Get_Player_By_Name(ctx.author.name)
                         user_player.supportLevel += 1
                         playerHit.supportLevel += 1
