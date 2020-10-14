@@ -34,7 +34,7 @@ load_dotenv(os.path.join(BASEDIR, 'token.env'))
 
 names = ["p1","p2","p3","p4","p5","p6","p7"]
 
-TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = os.getenv('TOKEN')
 
 bot = commands.Bot(command_prefix='!')
 
