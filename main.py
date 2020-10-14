@@ -197,7 +197,7 @@ async def run_duel(ctx, action, user = None):
                     elif action.lower() == "pass" and not Get_Player_By_Name(ctx.author.name).made_action_this_turn:
                         actionsMade += 1
                         #await ctx.message.delete()
-                
+                    return
                 print(ctx.author.name + " action made: " + str(actionsMade) + " vs len of player: " + str(len(current_players)))
                 if action.lower() == "cheatfinishround": ## devcheat
                     actionsMade = len(current_players)
