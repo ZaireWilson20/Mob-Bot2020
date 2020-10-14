@@ -64,7 +64,7 @@ async def run_duel(ctx, action, user = None):
 
     if action.lower() == "reset":
         game_started = False
-        current_players = 0
+        current_players = []
         joining_phase = True
         current_round_phase = RoundPhase.PRE_ROUND
         actionsMade = 0
@@ -107,7 +107,7 @@ async def run_duel(ctx, action, user = None):
 
     def Get_Player_By_Name(name):
         for p in current_players:
-            if(p.name == name):
+            if(p.name.lower() == name.lower()):
                 return p
     
     def Compile_Player_Stats():
@@ -141,7 +141,7 @@ async def run_duel(ctx, action, user = None):
             await ctx.send("Not enough players have joined, " + str(4 - len(current_players)) + " still needed")
             return
         elif game_started and action.lower() == "joingame":
-            Add_Player(ctx.author.name)
+            Add_Player(ctx.author.name.replace(" ",""))
             await ctx.send(ctx.author.name + " has joined the mob. Current players = " + str(len(current_players)) )
             await ctx.send(Get_Players_String())
             return
@@ -175,12 +175,12 @@ async def run_duel(ctx, action, user = None):
                 if isinstance(ctx.channel, discord.channel.DMChannel):
                     print("dm bot")
                     if action.lower() == "snitch" and not Get_Player_By_Name(ctx.author.name).made_action_this_turn:
-                        playerHit = Get_Player_By_Name(user)
+                        playerHit = Get_Player_By_Name()
                         playerHit.notoriety += 1
                         actionsMade += 1
                         #await ctx.message.delete()
                     elif action.lower() == "support" and not Get_Player_By_Name(ctx.author.name).made_action_this_turn:
-                        playerHit = Get_Player_By_Name(user)
+                        playerHit = Get_Player_By_Name()
                         user_player = Get_Player_By_Name(ctx.author.name)
                         user_player.supportLevel += 1
                         playerHit.supportLevel += 1
@@ -189,7 +189,8 @@ async def run_duel(ctx, action, user = None):
                     elif action.lower() == "pass" and not Get_Player_By_Name(ctx.author.name).made_action_this_turn:
                         actionsMade += 1
                         #await ctx.message.delete()
-
+                
+                print(ctx.author.name + " action made: " + actionsMade " vs len of player: " + len(current_players))
                 if action.lower() == "cheatfinishround": ## devcheat
                     actionsMade = len(current_players)
                     print("using finish cheat")
