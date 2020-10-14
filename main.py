@@ -60,6 +60,7 @@ async def run_duel(ctx, action, user = None):
     global current_round_phase
     global actionsMade
     global round_messgaes_sent
+    
     command_list = ["snitch", "support", "pass"]
 
     if action.lower() == "reset":
@@ -137,7 +138,7 @@ async def run_duel(ctx, action, user = None):
             game_started = True
             return
         
-        if game_started and len(current_players) < 4 and action.lower() != "joingame":
+        if game_started and len(current_players) > 4 and action.lower() == "joingame":  ## change > to < symbol
             await ctx.send("Not enough players have joined, " + str(4 - len(current_players)) + " still needed")
             return
         elif game_started and action.lower() == "joingame":
@@ -167,8 +168,15 @@ async def run_duel(ctx, action, user = None):
 
             if current_round_phase == RoundPhase.ROUND: ## DURING ROUND
                 if not round_messgaes_sent[1]:
-                    await ctx.send("Once everybody finishes their daily activities, we'll proceed to dinner")
-                    round_messgaes_sent[1] = True
+                    r = await ctx.send("Once everybody finishes their daily activities, we'll proceed to dinner. When you've DM'd who you either want to snitch out or support, press the ✅ reaction")
+                    await r.add_reaction('✅')
+                    try: 
+                        reaction, user = await bot.wait_for('reaction_add', check=checkReady)
+                    except:
+                        print("come on dawg")
+                    else:
+                        await ctx.send("Alright guys, now that everybody's ready, lets start the round. Let me know who ya either want to snitch on or support, or if ya gonna take the day off.")
+                        current_round_phase = RoundPhase.ROUND
                     return
                 
                 
