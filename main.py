@@ -63,7 +63,7 @@ async def run_duel(ctx, action, user = None):
     command_list = ["snitch", "support", "pass"]
 
     if action.lower() == "help":
-        await ctx.send("```Welcome to the Mob ladies and gents. The game is simple: ya gotta rise to the top ranks of the mob, but to do so, ya gotta choose who to help out and choose who to rat out. There's only room for one wiseguy at the top of this mob!\n\nCommands:\n!Mob Start: Starts the joining phase of the game.\n!Mob JoinGame: The sender joins the game.\n!Mob LockJoin: ends the joining phase and the game begins.```")
+        await ctx.send("```Welcome to the Mob ladies and gents. The game is simple: ya gotta rise to the top ranks of the mob, but to do so, ya gotta choose who to help out and choose who to rat out. There's only room for one wiseguy at the top of this mob!\n\nCommands:\n!Mob Start: Starts the joining phase of the game.\n!Mob JoinGame: The sender joins the game.\n!Mob LockJoin: ends the joining phase and the game begins.\n!Mob Snitch [player]: Command to be used during daily activities round. Snitches on someone, increasing notoriety level by 1.\n!Mob Support [player]: Command to be used in activities round. Support another player in the mob, increasing your and the person you support supportLevel by 1.```")
         return
     def Add_Player(name):
         p = Player(name)
@@ -172,6 +172,8 @@ async def run_duel(ctx, action, user = None):
                         #await ctx.message.delete()
                     elif action.lower() == "support" and not Get_Player_By_Name(ctx.author.name).made_action_this_turn:
                         playerHit = Get_Player_By_Name(user)
+                        user_player = Get_Player_By_Name(ctx.author.name)
+                        user_player.supportLevel += 1
                         playerHit.supportLevel += 1
                         actionsMade += 1
                         #await ctx.message.delete()                
