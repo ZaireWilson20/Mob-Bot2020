@@ -190,7 +190,7 @@ async def run_duel(ctx, action, user = None):
                         actionsMade += 1
                         #await ctx.message.delete()
                 
-                print(ctx.author.name + " action made: " + actionsMade " vs len of player: " + len(current_players))
+                print(ctx.author.name + " action made: " + actionsMade + " vs len of player: " + len(current_players))
                 if action.lower() == "cheatfinishround": ## devcheat
                     actionsMade = len(current_players)
                     print("using finish cheat")
